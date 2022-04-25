@@ -1,0 +1,18 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// You can also reference colors using the "default", "lighter", "darker", and "text" colors passed to define-palette.
+
+$nitheme-primary: mat.define-palette(mat.$teal-palette, 600, 100,900 );
+$nitheme-accent: mat.define-palette(mat.$purple-palette, 700, 400, 900);
+
+$nitheme: mat.define-light-theme((
+color:(
+  primary : $nitheme-primary,
+  accent : $nitheme-accent,
+)
+));
+
+@include mat.core-theme($nitheme);
+@include mat.all-component-themes($nitheme);
