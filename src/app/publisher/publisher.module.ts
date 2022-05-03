@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { PublisherListComponent } from './publisher-list/publisher-list.component';
@@ -16,7 +17,7 @@ import { MaterialModule } from 'src/shared/material.module';
     PublisherItemComponent,
     PublisherDetailsComponent,
   ],
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule,FormsModule, ReactiveFormsModule, MaterialModule],
   exports: [
     PublisherListComponent,
     PublisherManagerComponent,

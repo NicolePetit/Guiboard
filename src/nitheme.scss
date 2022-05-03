@@ -1,18 +1,31 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 @include mat.core();
 
 // You can also reference colors using the "default", "lighter", "darker", and "text" colors passed to define-palette.
 
-$nitheme-primary: mat.define-palette(mat.$teal-palette, 600, 100,900 );
+$nitheme-primary: mat.define-palette(mat.$teal-palette, 600, 100, 900);
 $nitheme-accent: mat.define-palette(mat.$purple-palette, 700, 400, 900);
+$nitheme-warn: mat.define-palette(mat.$red-palette, 900);
+$nitheme-disabled: mat.define-palette(mat.$brown-palette, 50);
+$nitheme-link: mat.define-palette(mat.$light-green-palette, 200);
 
-$nitheme: mat.define-light-theme((
-color:(
-  primary : $nitheme-primary,
-  accent : $nitheme-accent,
-)
-));
+$nitheme: mat.define-light-theme(
+  (
+    color: (
+      primary: $nitheme-primary,
+      accent: $nitheme-accent,
+      warn: $nitheme-warn,
+    ),
+  )
+);
+
+h1{
+  color: mat.get-color-from-palette($nitheme-primary, 300);
+}
+mat-icon{
+  color: mat.get-color-from-palette($nitheme-primary, 50);
+}
 
 @include mat.core-theme($nitheme);
 @include mat.all-component-themes($nitheme);
