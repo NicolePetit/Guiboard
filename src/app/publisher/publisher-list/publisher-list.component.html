@@ -1,10 +1,6 @@
 <h1>Liste des proclamateurs</h1>
 <hr>
 <table mat-table [dataSource]="publishers" class="mat-elevation-z8">
-  <!-- <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>ID</th>
-    <td mat-cell *matCellDef="let publishers"> {{publishers.indexof()}} </td>
-  </ng-container> -->
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Nom</th>
     <td mat-cell *matCellDef="let publishers"> {{publishers.lastName}} </td>
@@ -14,7 +10,7 @@
     <td mat-cell *matCellDef="let publishers"> {{publishers.firstName}} </td>
   </ng-container>
   <ng-container matColumnDef="gender">
-    <th mat-header-cell *matHeaderCellDef> </th>
+    <th mat-header-cell *matHeaderCellDef>Genre</th>
     <td mat-cell *matCellDef="let publishers"> {{publishers.gender}} </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -1,6 +1,6 @@
 export enum Gender {
-  male,
-  female,
+  male="Proclamateur",
+  female="Proclamatrice",
 }
 enum Hope {
   anointed,

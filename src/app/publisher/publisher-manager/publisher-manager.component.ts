@@ -15,7 +15,6 @@ import { Publisher } from '../publisher.model';
 export class PublisherManagerComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   publisher: Publisher;
-
   isElder: boolean = false;
   isMinistryAssisstant: boolean = false;
   filteredcommonPrivilege: Observable<string[]>;

@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Publisher } from './publisher.model';
+import { Subject } from 'rxjs';
+import { Gender, Publisher } from './publisher.model';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class PublisherService {
+  publishersChanged = new Subject<Publisher[]>();
   publishers: Publisher[] = [
     new Publisher(
       'Dutoit',
@@ -13,7 +15,7 @@ export class PublisherService {
       1,
       new Date(1999, 5, 1),
       new Date(2004, 7, 7),
-      1,
+      Gender.female,
       '044 253 52 64',
       'Mamie Lou 065 487 489 57 55',
       {
@@ -34,7 +36,7 @@ export class PublisherService {
       0,
       new Date(1954, 25, 11),
       new Date(1971, 2, 2),
-      0,
+      Gender.male,
       '044 253 52 64',
       'Mamie Lou 065 487 489 57 55',
       {
@@ -56,7 +58,7 @@ export class PublisherService {
 
   addPublisher(publisher:Publisher) {
     this.publishers.push(publisher);
-    console.log(this.publishers);
+    this.publishersChanged.next(this.publishers.slice())
 
   }
   updatePublisher() {}
