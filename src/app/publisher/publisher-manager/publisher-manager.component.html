@@ -2,27 +2,23 @@
   <mat-card-title> Ajouter nouveau proclamateur.trice</mat-card-title>
   <mat-card-subtitle>bla bla lba</mat-card-subtitle>
   <mat-card-content>
-    <form [formGroup]="publisher" (ngSubmit)="onSubmit()">
-    <h1>Informations personnelles</h1>
-    <hr>
+    <form [formGroup]="publisherFormGroup" (ngSubmit)="onSubmit()">
+      <h1>Informations personnelles</h1>
+      <hr>
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Nom de Famille</mat-label>
-          <input
-          matInput
-          placeholder="Nom de Famille"
-          [formControl]="lastName"
-          required>
+          <input matInput placeholder="Nom de Famille" formControlName="lastNameCtrl" required>
           <mat-hint>Champ obligatoire</mat-hint>
-          <mat-error *ngIf="lastName.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-error *ngIf="publisherFormGroup.get('lastNameCtrl')?.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Prénom</mat-label>
-          <input matInput placeholder="" [formControl]="firstName" required>
+          <input matInput placeholder="" formControlName="firstNameCtrl" required>
           <mat-hint>Champ obligatoire</mat-hint>
-          <mat-error *ngIf="lastName.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-error *ngIf="publisherFormGroup.get('firstNameCtrl')?.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
-        <mat-radio-group aria-label="Gender">
+        <mat-radio-group formControlName="genderCtrl" aria-label="Gender">
           <mat-radio-button value="1">Proclamateur</mat-radio-button>
           <mat-radio-button value="2">Proclamatrice</mat-radio-button>
         </mat-radio-group>
@@ -30,122 +26,132 @@
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Date de naissance</mat-label>
-          <input matInput [matDatepicker]="birthdate">
+          <input formControlName="birthdateCtrl" matInput [matDatepicker]="birthdate">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="birthdate"></mat-datepicker-toggle>
           <mat-datepicker #birthdate></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Date de baptême</mat-label>
-          <input matInput [matDatepicker]="baptismDate">
+          <input formControlName="baptismDateCtrl" matInput [matDatepicker]="baptismDate">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matSuffix [for]="baptismDate"></mat-datepicker-toggle>
           <mat-datepicker #baptismDate></mat-datepicker>
         </mat-form-field>
-        <mat-radio-group aria-label="Hope">
+        <mat-radio-group formControlName="hopeCtrl" aria-label="Hope">
           <mat-radio-button value="1">Autre brebis</mat-radio-button>
           <mat-radio-button value="2">Oint</mat-radio-button>
         </mat-radio-group>
       </p>
       <h1>Adresse</h1>
       <hr>
-      <p>
+      <div formGroupName = "adressCtrlGroup">
+        <p>
         <mat-form-field appearance="outline">
           <mat-label>Pays</mat-label>
-          <input matInput placeholder="Taiwan ou Suisse">
+          <input formControlName="countryCtrl" matInput placeholder="Taiwan ou Suisse">
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Canton ou Comté</mat-label>
-          <input matInput placeholder="Ex. Vaud">
+          <input formControlName="countyCtrl"matInput placeholder="Ex. Vaud">
         </mat-form-field>
       </p>
       <mat-form-field appearance="outline">
         <mat-label>Ville</mat-label>
-        <input matInput placeholder="Ex. Paris">
+        <input formControlName="cityCtrl" #city matInput placeholder="Ex. Paris">
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Quartier</mat-label>
-        <input matInput placeholder="Ex. 南區">
+        <input formControlName="districtCtrl" #district matInput placeholder="Ex. 南區">
         <mat-hint>Nécessaire que pour Taiwan</mat-hint>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Code postal</mat-label>
-        <input matInput type="number">
+        <input formControlName="zipCodeCtrl" #zipCode matInput type="number">
       </mat-form-field>
       <p>
-        <mat-form-field classe = "adress" appearance="outline">
+        <mat-form-field classe="adress" appearance="outline">
           <mat-label>Adresse ligne 1</mat-label>
-          <input matInput placeholder="nom de rue, numero du batiment, autres infos">
+          <input formControlName="adressFirstLineCtrl" #adressLine1 matInput placeholder="nom de rue, numero du batiment, autres infos">
         </mat-form-field>
-        <mat-form-field classe = "adress" appearance="outline">
+        <mat-form-field classe="adress" appearance="outline">
           <mat-label>Adresse ligne 2</mat-label>
-          <input matInput >
+          <input formControlName="adressSecondLineCtrl" #adressLine2 matInput>
         </mat-form-field>
-      </p>
+      </div>
       <p>
         <mat-form-field appearance="outline">
+          <mat-label>Numéro de téléphone</mat-label>
+          <input formControlName="phoneNumberCtrl" matInput >
+
+        </mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-label>Personne de confiance</mat-label>
-          <input matInput placeholder="indiquer nom, prénom et n° de téléphone">
+          <input formControlName="emergencyContactCtrl" matInput placeholder="indiquer nom, prénom et n° de téléphone">
           <mat-hint>Personne à contacter en cas d'urgence</mat-hint>
         </mat-form-field>
       </p>
-    <h1>Privilèges de service</h1>
-    <hr>
-    <p>
-      <mat-form-field  appearance="outline">
-        <mat-label>Privilèges communs aux frères et soeurs</mat-label>
-        <mat-chip-list #commmonPrivilegesChiplist aria-label="common privilege selection">
-          <mat-chip
-            *ngFor="let commmonPrivilege of commonPrivileges"
-            (removed)="removePrivilege(commmonPrivilege, commonPrivileges)">
-            {{commmonPrivilege}}
-            <button matChipRemove>
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip>
-          <input
-            placeholder="Rajouter un privilège..."
-            #commmonPrivilegeInput
-            [formControl]="commonPrivilegeCtrl"
-            [matAutocomplete]="auto"
-            [matChipInputFor]="commmonPrivilegesChiplist"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
-        </mat-chip-list>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedCommonPrivilege($event)">
-          <mat-option *ngFor="let commmonPrivilege of filteredcommonPrivilege | async" [value]="commmonPrivilege">
-            {{commmonPrivilege}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <button mat-stroked-button color="primary"  type="button" classe = "elderBtn">
-        Ancien</button>
-      <button mat-stroked-button color="accent"  type="button" classe = "minitryAssistantBtn">Assistant ministeriel</button>
-      <mat-form-field  appearance="outline">
-        <mat-label>Privilèges réservés aux frères</mat-label>
-        <mat-chip-list #BrothersPrivilegesChiplist aria-label="brothers privilege selection">
-          <mat-chip
-            *ngFor="let brothersPrivilege of brothersPrivileges"
-            (removed)="removePrivilege(brothersPrivilege, brothersPrivileges )">
-            {{brothersPrivilege}}
-            <button matChipRemove>
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip>
-          <input
-            placeholder="Rajouter un privilège..."
-            #brothersPrivilegeInput
-            [formControl]="brothersPrivilegeCtrl"
-            [matAutocomplete]="broAuto"
-            [matChipInputFor]="BrothersPrivilegesChiplist"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
-        </mat-chip-list>
-        <mat-autocomplete #broAuto="matAutocomplete" (optionSelected)="selectedBrothersPrivilege($event)">
-          <mat-option *ngFor="let brothersPrivilege of filteredBrothersPrivilege | async" [value]="brothersPrivilege">
-            {{brothersPrivilege}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </p>
+      <h1>Privilèges de service</h1>
+      <hr>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Privilèges communs aux frères et soeurs</mat-label>
+          <mat-chip-list #commmonPrivilegesChiplist aria-label="common privilege selection">
+            <mat-chip *ngFor="let commmonPrivilege of commonPrivileges"
+              (removed)="removePrivilege(commmonPrivilege, commonPrivileges)">
+              {{commmonPrivilege}}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input placeholder="Rajouter un privilège..." #commmonPrivilegeInput [formControl]="commonPrivilegeCtrl"
+              [matAutocomplete]="auto" [matChipInputFor]="commmonPrivilegesChiplist"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedCommonPrivilege($event)">
+            <mat-option *ngFor="let commmonPrivilege of filteredcommonPrivilege | async" [value]="commmonPrivilege">
+              {{commmonPrivilege}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button *ngIf="isElder===false && isMinistryAssisstant===false" mat-stroked-button color="primary" type="button"
+          #elderBtn (click)="onElderBtnClick()">
+          Ancien</button>
+        <button *ngIf="isElder===true && isMinistryAssisstant===false" mat-raised-button color="primary" type="button"
+          #elderBtn (click)="onElderBtnClick()">
+          Ancien</button>
+        <button *ngIf="isMinistryAssisstant===true" mat-stroked-button disabled type="button" #elderBtn
+          (click)="onElderBtnClick()">
+          Ancien</button>
+        <button *ngIf="isElder===false && isMinistryAssisstant===false" mat-stroked-button color="accent" type="button"
+          #minitryAssistantBtn (click)="onMinistryAssistantBtnClick()">Assistant ministeriel</button>
+        <button *ngIf="isElder===false && isMinistryAssisstant===true" mat-raised-button color="accent" type="button"
+          #minitryAssistantBtn (click)="onMinistryAssistantBtnClick()">Assistant ministeriel</button>
+        <button *ngIf="isElder===true " mat-stroked-button disabled type="button" #minitryAssistantBtn
+          (click)="onMinistryAssistantBtnClick()">Assistant ministeriel</button>
+        <mat-form-field appearance="outline">
+          <mat-label>Privilèges réservés aux frères</mat-label>
+          <mat-chip-list #BrothersPrivilegesChiplist aria-label="brothers privilege selection">
+            <mat-chip *ngFor="let brothersPrivilege of brothersPrivileges"
+              (removed)="removePrivilege(brothersPrivilege, brothersPrivileges )">
+              {{brothersPrivilege}}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input placeholder="Rajouter un privilège..." #brothersPrivilegeInput [formControl]="brothersPrivilegeCtrl"
+              [matAutocomplete]="broAuto" [matChipInputFor]="BrothersPrivilegesChiplist"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+          </mat-chip-list>
+          <mat-autocomplete #broAuto="matAutocomplete" (optionSelected)="selectedBrothersPrivilege($event)">
+            <mat-option *ngFor="let brothersPrivilege of filteredBrothersPrivilege | async" [value]="brothersPrivilege">
+              {{brothersPrivilege}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </p>
+      <button mat-raised-button color="accent" type="submit">Sauvegarder</button>
+
     </form>
   </mat-card-content>
 </mat-card>

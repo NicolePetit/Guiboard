@@ -21,11 +21,9 @@ $nitheme: mat.define-light-theme(
 );
 
 h1{
-  color: mat.get-color-from-palette($nitheme-primary, 300);
+  color: mat.get-color-from-palette($nitheme-primary, 600);
 }
-mat-icon{
-  color: mat.get-color-from-palette($nitheme-primary, 50);
-}
+
 
 @include mat.core-theme($nitheme);
 @include mat.all-component-themes($nitheme);

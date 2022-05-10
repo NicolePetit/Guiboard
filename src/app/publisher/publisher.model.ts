@@ -1,4 +1,4 @@
-enum Gender {
+export enum Gender {
   male,
   female,
 }
@@ -7,6 +7,8 @@ enum Hope {
   otherSheep,
 }
 type Address = {
+  country: string,
+  county : string,
   zipCode: number;
   city: string;
   adressLine1: string;
@@ -18,15 +20,15 @@ export class Publisher {
     public lastName: string,
     public firstName: string,
     public hope: Hope,
-    public birthdate: string,
-    public baptismDate: string,
+    public birthdate: Date,
+    public baptismDate: Date,
     public gender: Gender,
-    public pioneer: boolean,
     public phoneNumber: string,
     public emergencyContact: string,
     public adress: Address,
     public elder?: boolean,
     public ministerialServant?: boolean,
-    public privileges?: string[]
+    public commonPrivileges?: string[],
+    public brotherPrivileges?: string[],
   ) {}
 }
