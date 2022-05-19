@@ -14,7 +14,8 @@ import { MaterialModule } from 'src/shared/material.module';
   declarations: [
     AppComponent,
     HeaderComponent,
-    SideBarComponent
+    SideBarComponent,
+
   ],
   imports: [
     BrowserModule,

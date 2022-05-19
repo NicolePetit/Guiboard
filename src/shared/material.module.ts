@@ -12,10 +12,11 @@ import {MatChipsModule} from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
 
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
-const matModule = [MatButtonModule ,MatTableModule, MatToolbarModule,MatAutocompleteModule,MatChipsModule,MatNativeDateModule, MatRippleModule,MatDatepickerModule, MatCardModule, MatCommonModule, MatFormFieldModule,MatIconModule, MatInputModule, MatRadioModule]
+const matModule = [MatButtonModule, MatSortModule, MatTableModule, MatToolbarModule,MatAutocompleteModule,MatChipsModule,MatNativeDateModule, MatRippleModule,MatDatepickerModule, MatCardModule, MatCommonModule, MatFormFieldModule,MatIconModule, MatInputModule, MatRadioModule]
 
 @NgModule({
   declarations: [],
