@@ -2,10 +2,78 @@
 
 @include mat.core();
 
+$nibleu-palette: (
+  50 : #edf3fa,
+  100 : #d2e0f3,
+  200 : #b5cbec,
+  300 : #97b6e4,
+  400 : #80a7de,
+  500 : #6a97d8,
+  600 : #628fd4,
+  700 : #5784ce,
+  800 : #4d7ac8,
+  900 : #3c69bf,
+  A100 : #ffffff,
+  A200 : #dae6ff,
+  A400 : #a7c3ff,
+  A700 : #8db2ff,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: white,
+)
+);
+$nibrun-palette: (
+  50 : #fcf5f0,
+  100 : #f6e6d8,
+  200 : #f1d5bf,
+  300 : #ebc4a5,
+  400 : #e6b791,
+  500 : #e2aa7e,
+  600 : #dfa376,
+  700 : #da996b,
+  800 : #d69061,
+  900 : #cf7f4e,
+  A100 : #ffffff,
+  A200 : #fffbf8,
+  A400 : #ffdbc5,
+  A700 : #ffcaac,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: white,
+)
+);
+
+
+
+
 // You can also reference colors using the "default", "lighter", "darker", and "text" colors passed to define-palette.
 
-$nitheme-primary: mat.define-palette(mat.$teal-palette, 600, 100, 900);
-$nitheme-accent: mat.define-palette(mat.$purple-palette, 700, 400, 900);
+$nitheme-primary: mat.define-palette($nibrun-palette, 700, 100, 900);
+$nitheme-accent: mat.define-palette($nibleu-palette, 700, 400, 900);
 $nitheme-warn: mat.define-palette(mat.$red-palette, 900);
 $nitheme-disabled: mat.define-palette(mat.$brown-palette, 50);
 $nitheme-link: mat.define-palette(mat.$light-green-palette, 200);
@@ -20,9 +88,9 @@ $nitheme: mat.define-light-theme(
   )
 );
 
-h1{
-  color: mat.get-color-from-palette($nitheme-primary, 600);
-}
+// h1{
+//   color: mat.get-color-from-palette($nitheme-primary, 100);
+// }
 
 
 @include mat.core-theme($nitheme);

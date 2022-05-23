@@ -1,0 +1,66 @@
+@use "@angular/material" as mat;
+@use "../../nitheme.scss" as nitheme;
+
+.homepagecontainer {
+  height: 100%;
+  background : {
+    image: url(../../assets/pictures/paysageTaichung.jpg);
+    size: cover;
+    repeat: no-repeat;
+  }
+  object-fit: cover;
+
+}
+.titlebox{
+  height: 15vw;
+  width: 45vw;
+  position: fixed;
+  display: grid;
+  bottom: 50%;
+  right: 50%;
+}
+.title {
+  position: absolute;
+  display: flex;
+  left: 0px;
+  right: 0px;
+  bottom: 53%;
+  font-family: "Abril Fatface", cursive;
+  color: #3c69bf;
+  font-size: 10vw;
+  size: 10vw;
+  text-align: center;
+  max-height: 100%;
+  align-items: baseline;
+  padding-top: 4vw;
+  padding-bottom: 1vw;
+}
+
+
+.homepage-card {
+  display: inline-grid;
+  position: relative;
+  background: mat.get-color-from-palette(nitheme.$nitheme-primary, 100);
+  // border: 2px solid mat.get-color-from-palette(nitheme.$nitheme-primary, 800);
+  // border-radius: 2px;
+  width: 300px;
+  left: 5vw;
+  top: 27vw;
+  margin-right: 3vw;
+  margin-bottom: 3vw;
+  padding: 0px 0px 30px 0px;
+  font-family: 'Montserrat', sans-serif;
+
+}
+.card-header{
+  background: mat.get-color-from-palette(nitheme.$nitheme-accent, 800);
+  padding-top: 10px;
+  color: mat.get-color-from-palette(nitheme.$nitheme-primary, 100);
+}
+.card-content{
+  padding: 10px;
+}
+.card-action{
+  padding: 10px;
+}
+

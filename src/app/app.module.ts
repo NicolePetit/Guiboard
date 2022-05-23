@@ -9,12 +9,16 @@ import { SideBarComponent } from './side-bar/side-bar.component';
 import { PublisherModule } from './publisher/publisher.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from 'src/shared/material.module';
+import { HomePageComponent } from './home-page/home-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SideBarComponent,
+    HomePageComponent,
+    PageNotFoundComponent,
 
   ],
   imports: [

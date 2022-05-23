@@ -8,6 +8,8 @@ import { PublisherManagerComponent } from './publisher-manager/publisher-manager
 import { PublisherItemComponent } from './publisher-item/publisher-item.component';
 import { PublisherDetailsComponent } from './publisher-details/publisher-details.component';
 import { MaterialModule } from 'src/shared/material.module';
+import { RouterModule } from '@angular/router';
+
 
 
 @NgModule({
@@ -17,7 +19,7 @@ import { MaterialModule } from 'src/shared/material.module';
     PublisherItemComponent,
     PublisherDetailsComponent,
   ],
-  imports: [CommonModule,FormsModule, ReactiveFormsModule, MaterialModule],
+  imports: [CommonModule,FormsModule, ReactiveFormsModule, MaterialModule, RouterModule],
   exports: [
     PublisherListComponent,
     PublisherManagerComponent,

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
 import { Publisher } from '../publisher.model';
 import { PublisherService } from '../publisher.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-publisher-list',
@@ -16,7 +17,7 @@ export class PublisherListComponent implements OnInit,AfterViewInit, OnDestroy {
   dataSource = new MatTableDataSource(this.publishers);
   sub: Subscription;
 
-  constructor(public publservice: PublisherService) {}
+  constructor(public publservice: PublisherService, public router: Router) {}
 
   @ViewChild(MatSort) sort: MatSort;
 ngAfterViewInit(): void {
