@@ -1,15 +1,22 @@
 @use "@angular/material" as mat;
 @use "../nitheme" as nitheme;
 
-
-
-app-publisher-details{
-position: relative;
-left: 50px;
-  margin: 50px ;
+.root-router{
+  position: absolute;
+  top: 6vw;
+  width: 100%;
 }
 .header{
   position: fixed;
   right: 0;
   left: 0;
+  z-index: 1;
+}
+.footer{
+  position: fixed;
+  margin: 0px ;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
 }

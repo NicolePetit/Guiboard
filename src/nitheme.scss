@@ -2,21 +2,22 @@
 
 @include mat.core();
 
+
 $nibleu-palette: (
-  50 : #edf3fa,
-  100 : #d2e0f3,
-  200 : #b5cbec,
-  300 : #97b6e4,
-  400 : #80a7de,
-  500 : #6a97d8,
-  600 : #628fd4,
-  700 : #5784ce,
-  800 : #4d7ac8,
-  900 : #3c69bf,
-  A100 : #ffffff,
-  A200 : #dae6ff,
-  A400 : #a7c3ff,
-  A700 : #8db2ff,
+  50: #edf3fa,
+  100: #d2e0f3,
+  200: #b5cbec,
+  300: #97b6e4,
+  400: #80a7de,
+  500: #6a97d8,
+  600: #628fd4,
+  700: #5784ce,
+  800: #4d7ac8,
+  900: #3c69bf,
+  A100: #ffffff,
+  A200: #dae6ff,
+  A400: #a7c3ff,
+  A700: #8db2ff,
   contrast: (
     50: rgba(black, 0.87),
     100: rgba(black, 0.87),
@@ -32,23 +33,23 @@ $nibleu-palette: (
     A200: rgba(black, 0.87),
     A400: rgba(black, 0.87),
     A700: white,
-)
+  ),
 );
 $nibrun-palette: (
-  50 : #fcf5f0,
-  100 : #f6e6d8,
-  200 : #f1d5bf,
-  300 : #ebc4a5,
-  400 : #e6b791,
-  500 : #e2aa7e,
-  600 : #dfa376,
-  700 : #da996b,
-  800 : #d69061,
-  900 : #cf7f4e,
-  A100 : #ffffff,
-  A200 : #fffbf8,
-  A400 : #ffdbc5,
-  A700 : #ffcaac,
+  50: #fcf5f0,
+  100: #f6e6d8,
+  200: #f1d5bf,
+  300: #ebc4a5,
+  400: #e6b791,
+  500: #e2aa7e,
+  600: #dfa376,
+  700: #da996b,
+  800: #d69061,
+  900: #cf7f4e,
+  A100: #ffffff,
+  A200: #fffbf8,
+  A400: #ffdbc5,
+  A700: #ffcaac,
   contrast: (
     50: rgba(black, 0.87),
     100: rgba(black, 0.87),
@@ -64,19 +65,44 @@ $nibrun-palette: (
     A200: rgba(black, 0.87),
     A400: rgba(black, 0.87),
     A700: white,
-)
+  ),
 );
 
-
-
-
 // You can also reference colors using the "default", "lighter", "darker", and "text" colors passed to define-palette.
+
 
 $nitheme-primary: mat.define-palette($nibrun-palette, 700, 100, 900);
 $nitheme-accent: mat.define-palette($nibleu-palette, 700, 400, 900);
 $nitheme-warn: mat.define-palette(mat.$red-palette, 900);
 $nitheme-disabled: mat.define-palette(mat.$brown-palette, 50);
 $nitheme-link: mat.define-palette(mat.$light-green-palette, 200);
+
+$nivel: mat.define-typography-level(
+  $font-family: "Montserrat",
+  $font-weight: 400,
+  $font-size: 1rem,
+  $line-height: 1,
+  $letter-spacing: normal,
+);
+
+$nitheme-typography: mat.define-typography-config(
+  $display-4:
+    mat.define-typography-level(112px, 112px, 300, $letter-spacing: -0.05em,$font-family: "Montserrat"),
+  $display-3:
+    mat.define-typography-level(56px, 56px, 400, $letter-spacing: -0.02em, $font-family: "Montserrat"),
+  $display-2:
+    mat.define-typography-level(45px, 48px, 400, $letter-spacing: -0.005em, $font-family: "Montserrat"),
+  $display-1: mat.define-typography-level(34px, 40px, 400, $font-family: "Montserrat"),
+  $headline: mat.define-typography-level(20px, 27px, 500, $font-family: "Montserrat"),
+  $title: mat.define-typography-level(20px, 27px, 400, $font-family: "Montserrat"),
+  $subheading-1: mat.define-typography-level(15px, 17px, 400, $font-family: "Montserrat"),
+  $subheading-2: mat.define-typography-level(16px, 21px, 500, $font-family: "Montserrat"),
+  $body-1: mat.define-typography-level(16px, 21px, 400, $font-family: "Montserrat"),
+  $body-2: mat.define-typography-level(16px, 25px, 500, $font-family: "Montserrat"),
+  $caption: mat.define-typography-level(14px, 21px, 400, $font-family: "Montserrat"),
+  $button: mat.define-typography-level(16px, 21px, 400, $font-family: "Montserrat"),
+  $input: mat.define-typography-level(inherit, 1.125, 400, $font-family: "Montserrat"),
+);
 
 $nitheme: mat.define-light-theme(
   (
@@ -85,13 +111,12 @@ $nitheme: mat.define-light-theme(
       accent: $nitheme-accent,
       warn: $nitheme-warn,
     ),
+    typography: $nitheme-typography,
   )
 );
-
-// h1{
-//   color: mat.get-color-from-palette($nitheme-primary, 100);
-// }
 
 
 @include mat.core-theme($nitheme);
 @include mat.all-component-themes($nitheme);
+// @include mat.all-component-typographies($nitheme-typography);
+

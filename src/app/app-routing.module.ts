@@ -11,8 +11,8 @@ const routes: Routes = [
   { path: 'publishers', component: PublisherListComponent },
   { path: 'publishers/publisher-detail', component: PublisherDetailsComponent },
   { path: 'publishers/manage-publisher', component: PublisherManagerComponent },
-  { path: 'page-not-found', component: PageNotFoundComponent },
-  {path: '**', redirectTo : '/page-not-found'}
+  // { path: 'page-not-found', component: PageNotFoundComponent },
+  // {path: '**', redirectTo : '/page-not-found'}
 ];
 
 @NgModule({

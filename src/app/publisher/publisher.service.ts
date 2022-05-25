@@ -31,6 +31,48 @@ export class PublisherService {
       ['coucou', 'je suis', 'un privilege']
     ),
     new Publisher(
+      'Dutoit',
+      'Carengueude',
+      1,
+      new Date(1999, 5, 1),
+      new Date(2004, 7, 7),
+      Gender.female,
+      '044 253 52 64',
+      'Mamie Lou 065 487 489 57 55',
+      {
+        country : 'France',
+        county : 'Paris',
+        zipCode: 1499,
+        city: 'Paris',
+        adressLine1: 'rue du Molard 47',
+        adressLine2: 'appt 16-b',
+      },
+      undefined,
+      undefined,
+      ['coucou', 'je suis', 'un privilege']
+    ),
+    new Publisher(
+      'Dutoit',
+      'Carengueude',
+      1,
+      new Date(1999, 5, 1),
+      new Date(2004, 7, 7),
+      Gender.female,
+      '044 253 52 64',
+      'Mamie Lou 065 487 489 57 55',
+      {
+        country : 'France',
+        county : 'Paris',
+        zipCode: 1499,
+        city: 'Paris',
+        adressLine1: 'rue du Molard 47',
+        adressLine2: 'appt 16-b',
+      },
+      undefined,
+      undefined,
+      ['coucou', 'je suis', 'un privilege']
+    ),
+    new Publisher(
       'Corgi',
       'Walter',
       0,

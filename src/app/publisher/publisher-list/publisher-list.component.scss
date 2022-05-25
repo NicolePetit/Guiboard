@@ -1,15 +1,30 @@
+@use "@angular/material" as mat;
+@use "../../../nitheme.scss" as nitheme;
+
 table {
   width: 100%;
 }
-.example-container {
+h1{
+  margin-left: 30px;
+  margin-top: 30px;
+}
+.publisher-object {
+
+  background-color: rgb(226 229 229 / 60%);
+  position: relative;
+  margin: auto;
+  width: 90%;
   height: 400px;
   overflow: auto;
 }
-.mat-form-field {
+.publisher-filter {
   font-size: 14px;
   width: 100%;
 }
-
-th.mat-sort-header-sorted {
-  color: black;
+.publisher-table {
+  background: mat.get-color-from-palette(nitheme.$nitheme-accent, 100);
+  position: relative;
+  width: 97%;
+  margin: auto;
 }
+
