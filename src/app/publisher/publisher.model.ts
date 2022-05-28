@@ -17,6 +17,7 @@ type Address = {
 
 export class Publisher {
   constructor(
+    public id : string | number,
     public lastName: string,
     public firstName: string,
     public hope: Hope,

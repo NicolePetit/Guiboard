@@ -26,6 +26,7 @@ ngAfterViewInit(): void {
 
   ngOnInit(): void {
 
+
     this.sub = this.publservice.publishersChanged.subscribe(
       (publishers: Publisher[]) => {
         this.publishers = publishers;
@@ -47,5 +48,8 @@ ngAfterViewInit(): void {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  onRowClick(id:any){
+    this.router.navigate([`/publishers/publisher-detail/${id}`])
   }
 }

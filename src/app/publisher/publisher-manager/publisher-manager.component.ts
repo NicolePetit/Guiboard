@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { PublisherService } from '../publisher.service';
 import { Publisher } from '../publisher.model';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-publisher-manager',
@@ -125,6 +126,7 @@ export class PublisherManagerComponent implements OnInit {
 
   managePublisher() {
     this.publisher = {
+      id: uuidv4(),
       lastName: this.publisherFormGroup.get('lastNameCtrl')?.value,
       firstName: this.publisherFormGroup.get('firstNameCtrl')?.value,
       hope: this.publisherFormGroup.get('hopeCtrl')?.value,

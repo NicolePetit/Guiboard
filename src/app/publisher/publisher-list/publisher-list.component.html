@@ -1,30 +1,30 @@
 <div class="publisher-object mat-elevation-z8">
-  <h1 class="mat-display-1" >Liste des proclamateurs</h1>
-<mat-form-field class="publisher-filter" appearance="standard">
-  <mat-label>Filtrer</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Rototo" #input>
-</mat-form-field>
+  <h1 class="mat-display-1">Liste des proclamateurs</h1>
+  <mat-form-field class="publisher-filter" appearance="standard">
+    <mat-label>Filtrer</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Rototo" #input>
+  </mat-form-field>
 
-<div class="publisher-table">
-  <table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="lastName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by lastName">Nom</th>
-      <td mat-cell *matCellDef="let publishers"> {{publishers.lastName}} </td>
-    </ng-container>
-    <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by firstName">Prénom</th>
-      <td mat-cell *matCellDef="let publishers"> {{publishers.firstName}} </td>
-    </ng-container>
-    <ng-container matColumnDef="gender">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by gender">Genre</th>
-      <td mat-cell *matCellDef="let publishers"> {{publishers.gender}} </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/publishers/publisher-detail/']">
-    </tr>
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">Pas de proclamateur correspondant au filtre : "{{input.value}}"</td>
-    </tr>
-  </table>
-</div>
+  <div class="publisher-table">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by lastName">Nom</th>
+        <td mat-cell *matCellDef="let publishers"> {{publishers.lastName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by firstName">Prénom</th>
+        <td mat-cell *matCellDef="let publishers"> {{publishers.firstName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="gender">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by gender">Genre</th>
+        <td mat-cell *matCellDef="let publishers"> {{publishers.gender}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let publisher; columns: displayedColumns;" (click)="onRowClick(publisher.id)">
+      </tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Pas de proclamateur correspondant au filtre : "{{input.value}}"</td>
+      </tr>
+    </table>
+  </div>
 </div>

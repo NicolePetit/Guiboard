@@ -1,18 +1,22 @@
 <mat-card class="publisherCard mat-typography">
   <mat-card-header class="cardHeader">
     <mat-card-title class="cardTitle">
-      <mat-icon svgIcon="female"></mat-icon>  Dutoit Carengueude <span>(née le 14
-        septembre 1992)  <mat-icon svgIcon="sheep"></mat-icon></span>
+      <mat-icon svgIcon="{{publisher.gender==='Proclamatrice'? 'female' : 'male'}}"></mat-icon>  {{publisher.lastName}} {{publisher.firstName}} <span>(née le {{publisher.birthdate.toLocaleDateString("fr-FR", {year: 'numeric', month: 'long', day: 'numeric' })}})  <mat-icon svgIcon="{{publisher.hope===0? 'crown' : 'sheep'}}"></mat-icon></span>
     </mat-card-title>
-    <mat-card-subtitle class="cardSubtitle">bapteme le 7 juillet 2015</mat-card-subtitle>
+    <mat-card-subtitle class="cardSubtitle">baptême le {{publisher.baptismDate.toLocaleDateString("fr-FR", {year: 'numeric', month: 'long', day: 'numeric' })}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="cardContent">
     <div>
-      <h2 >Ancien ou am (attributions)</h2>
+      <h2 *ngIf="publisher.elder" >Ancien</h2>
+      <h2 *ngIf="publisher.ministerialServant" >Assistant Ministeriel</h2>
+      <h2 *ngIf="publisher.commonPrivileges" >{{publisher.commonPrivileges}}</h2>
+
       <h3 >Adresse</h3>
-      <p class="mat-body">adresse ville </p>
-      <p class="mat-body">adress ligne 2</p>
-      <p class="mat-body">no de tel</p>
+      <p class="mat-h5">{{publisher.adress.country}}, {{publisher.adress.county}}</p>
+      <p class="mat-body">{{publisher.adress.city}} </p>
+      <p class="mat-body">{{publisher.adress.adressLine1}} </p>
+      <p *ngIf="publisher.adress.adressLine2" class="mat-body">{{publisher.adress.adressLine2}} </p>
+      <p class="mat-body">{{publisher.phoneNumber}}</p>
     </div>
   </mat-card-content>
   <mat-card-actions class="cardActions">
@@ -25,6 +29,6 @@
   </mat-card-actions>
 
   <mat-card-footer class="cardFooter">
-    contact d'urgence : Mamie Lou 024.556.694.15
+    contact d'urgence : {{publisher.emergencyContact}}
   </mat-card-footer>
 </mat-card>

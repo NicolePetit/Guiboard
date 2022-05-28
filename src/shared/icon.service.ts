@@ -21,7 +21,7 @@ export class IconService {
       sanitizer.bypassSecurityTrustResourceUrl('/assets/icon/sheep-icon.svg')
     );
     iconRegistry.addSvgIcon(
-      `oint`,
+      `crown`,
       sanitizer.bypassSecurityTrustResourceUrl('/assets/icon/crown-icon.svg')
     );
   }
