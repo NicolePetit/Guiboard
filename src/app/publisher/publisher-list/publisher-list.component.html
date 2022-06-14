@@ -1,6 +1,6 @@
 <div class="publisher-object mat-elevation-z8">
   <h1 class="mat-display-1">Liste des proclamateurs</h1>
-  <mat-form-field class="publisher-filter" appearance="standard">
+  <mat-form-field class="publisher-filter"color="primary" appearance="standard">
     <mat-label>Filtrer</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Rototo" #input>
   </mat-form-field>
@@ -26,5 +26,9 @@
         <td class="mat-cell" colspan="4">Pas de proclamateur correspondant au filtre : "{{input.value}}"</td>
       </tr>
     </table>
+  </div>
+  <div class="publisher-managment mat-elevation -z12">
+    <button mat-raised-button (click)="onClickAddPublisher()" color="primary">Ajout proclamateur</button>
+    <button mat-raised-button color="accent">Ajout express</button>
   </div>
 </div>

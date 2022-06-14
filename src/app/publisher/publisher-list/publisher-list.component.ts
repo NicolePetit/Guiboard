@@ -44,6 +44,9 @@ export class PublisherListComponent implements OnInit, AfterViewInit, OnDestroy{
   onRowClick(id: any) {
     this.router.navigate([`/publishers/publisher-detail/${id}`]);
   }
+  onClickAddPublisher(){
+    this.router.navigate(["/publishers/manage-publisher"]);
+  }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
