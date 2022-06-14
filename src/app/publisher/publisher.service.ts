@@ -1,119 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Gender, Publisher } from './publisher.model';
-import { v4 as uuidv4 } from 'uuid';
-
-
+import { BehaviorSubject, map } from 'rxjs';
+import { Publisher } from './publisher.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PublisherService {
-  publishersChanged = new Subject<Publisher[]>();
-  publishers: Publisher[] = [
-    new Publisher(
-      uuidv4(),
-      'Dutoit',
-      'Carengueude',
-      1,
-      new Date(1999, 5, 1),
-      new Date(2004, 7, 7),
-      Gender.female,
-      '044 253 52 64',
-      'Mamie Lou 065 487 489 57 55',
-      {
-        country : 'France',
-        county : 'Paris',
-        zipCode: 1499,
-        city: 'Paris',
-        adressLine1: 'rue du Molard 47',
-        adressLine2: 'appt 16-b',
-      },
-      undefined,
-      undefined,
-      ['Pionnier']
-    ),
-    new Publisher(
-      uuidv4(),
-      'Dutoit',
-      'Carengueude',
-      1,
-      new Date(1999, 5, 1),
-      new Date(2004, 7, 7),
-      Gender.female,
-      '044 253 52 64',
-      'Mamie Lou 065 487 489 57 55',
-      {
-        country : 'France',
-        county : 'Paris',
-        zipCode: 1499,
-        city: 'Paris',
-        adressLine1: 'rue du Molard 47',
-        adressLine2: 'appt 16-b',
-      },
-      undefined,
-      undefined,
-      ['coucou', 'je suis', 'un privilege']
-    ),
-    new Publisher(
-      uuidv4(),
-      'Dutoit',
-      'Carengueude',
-      1,
-      new Date(1999, 5, 1),
-      new Date(2004, 7, 7),
-      Gender.female,
-      '044 253 52 64',
-      'Mamie Lou 065 487 489 57 55',
-      {
-        country : 'France',
-        county : 'Paris',
-        zipCode: 1499,
-        city: 'Paris',
-        adressLine1: 'rue du Molard 47',
-        adressLine2: 'appt 16-b',
-      },
-      undefined,
-      undefined,
-      ['coucou', 'je suis', 'un privilege']
-    ),
-    new Publisher(
-      uuidv4(),
-      'Corgi',
-      'Walter',
-      0,
-      new Date(1954, 25, 11),
-      new Date(1971, 2, 2),
-      Gender.male,
-      '044 253 52 64',
-      'Mamie Lou 065 487 489 57 55',
-      {
-        country : 'Germany',
-        county : 'Osef',
-        zipCode: 1499,
-        city: 'Paris',
-        adressLine1: 'rue du Molard 47',
-        adressLine2: 'appt 16-b',
-      },
-      true,
-      undefined,
-      ['serviteur aux comptes'],
-      ['Pionnier'],
-    ),
-  ];
+  publishers$: BehaviorSubject<Publisher[]> = new BehaviorSubject<Publisher[]>([]);
+  publisherById$: BehaviorSubject<Publisher | null> =new BehaviorSubject<Publisher | null>(null);
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-
-  addPublisher(publisher:Publisher) {
-    this.publishers.push(publisher);
-    this.publishersChanged.next(this.publishers.slice())
-
+  addPublisher(publisher: Publisher) {
+    const publishers = this.publishers$.value;
+    publishers.push(publisher);
+    this.publishers$.next(publishers);
   }
+
   updatePublisher() {}
   removePublisher() {}
-  findOnePublisher(paramsId : string) {
-    return this.publishers.find((publisher)=>publisher.id==paramsId);
+
+  findOnePublisher(paramsId: string) {
+    this.http
+      .get(`http://localhost:3000/api/guiboard/publishers/${paramsId}`)
+      .subscribe((responseData) => {
+        this.publisherById$.next(new Publisher(responseData));
+      });
   }
-  findAllPublishers() {}
+
+  findAllPublishers() {
+    this.http
+      .get('http://localhost:3000/api/guiboard/publishers').pipe(map((publishers)=> (publishers as any[]).map(publisher=>new Publisher(publisher))))
+      .subscribe((responseData) => {
+        this.publishers$.next(responseData);
+      });
+  }
 }

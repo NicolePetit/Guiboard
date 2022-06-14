@@ -1,9 +1,10 @@
-<mat-card class="publisherCard mat-typography">
+<!-- inserer spinner, ngifelse -->
+<mat-card *ngIf="publisher" class="publisherCard mat-typography">
   <mat-card-header class="cardHeader">
     <mat-card-title class="cardTitle">
-      <mat-icon svgIcon="{{publisher.gender==='Proclamatrice'? 'female' : 'male'}}"></mat-icon>  {{publisher.lastName}} {{publisher.firstName}} <span>(née le {{publisher.birthdate.toLocaleDateString("fr-FR", {year: 'numeric', month: 'long', day: 'numeric' })}})  <mat-icon svgIcon="{{publisher.hope===0? 'crown' : 'sheep'}}"></mat-icon></span>
+      <mat-icon svgIcon="{{publisher.gender==='Proclamatrice'? 'female' : 'male'}}"></mat-icon>  {{publisher.lastName}} {{publisher.firstName}} <span>né(e) le {{dateUtil.formatDate(publisher.birthdate)}}  <mat-icon svgIcon="{{publisher.hope===0? 'crown' : 'sheep'}}"></mat-icon></span>
     </mat-card-title>
-    <mat-card-subtitle class="cardSubtitle">baptême le {{publisher.baptismDate.toLocaleDateString("fr-FR", {year: 'numeric', month: 'long', day: 'numeric' })}}</mat-card-subtitle>
+    <mat-card-subtitle class="cardSubtitle">baptême le {{dateUtil.formatDate(publisher.baptismDate)}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="cardContent">
     <div>
@@ -22,7 +23,8 @@
   <mat-card-actions class="cardActions">
     <button mat-raised-button color="accent">Modifier</button>
 
-    <button mat-fab color="warn">
+    <button mat-fab color="warn"
+    class="deleteButton">
       <mat-icon>delete</mat-icon>
     </button>
 

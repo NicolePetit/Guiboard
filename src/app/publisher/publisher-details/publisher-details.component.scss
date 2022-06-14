@@ -1,7 +1,6 @@
 @use "@angular/material" as mat;
 @use "../../../nitheme.scss" as nitheme;
 
-
 @mixin nopadding {
   padding-top: 0px;
   padding-left: 0px;
@@ -10,35 +9,49 @@
 
 .publisherCard {
   @include nopadding();
+  position: relative;
+  margin: auto;
+  margin-top: 70px;
+  width: 90%;
   max-width: 600px;
+  height: fit-content;
   background-color: mat.get-color-from-palette(nitheme.$nitheme-primary, 50);
 }
 .cardHeader {
   color: whitesmoke;
   background-color: mat.get-color-from-palette(nitheme.$nitheme-primary, 700);
-  .otherSheep{
+  .otherSheep {
     color: white;
     max-width: 24px;
     max-height: 24px;
   }
 }
-.cardTitle{
+.cardTitle {
   margin: 10px 0px;
 }
-.cardSubtitle{
+.cardSubtitle {
   color: lightgrey;
   margin-top: 5px !important;
   margin-bottom: 5px !important;
 }
-.cardContent{
+.cardContent {
   margin: 5px;
-  div{
+  div {
     margin-top: 10px;
-    height: 200px;}
+    height: 250px;
+  }
 }
-.cardActions{
-  margin: 5px;
+.cardActions {
+  position: relative;
+  top: 10px;
+  margin: 10px;
+  width: 100%;
 }
 .cardFooter {
   margin: 5px;
 }
+
+// .deleteButton {
+//   left: 390px;
+//   top: 45px;
+// }
