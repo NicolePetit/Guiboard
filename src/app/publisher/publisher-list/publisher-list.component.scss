@@ -19,8 +19,6 @@ h1{
   overflow: auto;
 }
 .publisher-filter {
-  // position: relative;
-  // margin: auto;
   font-size: 14px;
   width: 98.5%;
 
@@ -39,4 +37,19 @@ h1{
     margin: 0.5%;
   }
 }
-
+.quick-fast-add-publisher{
+  position: absolute;
+  top: -20%;
+  left: 0%;
+  z-index: 101;
+  height: 98vh;
+  width:100vw;
+  background-color: rgba(165, 165, 165, 80%);
+}
+.quick-fast-add-publisher-form{
+  position: relative;
+  top: 20vh;
+  height: 30vh;
+  width:50vw;
+  margin: auto;
+}

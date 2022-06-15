@@ -126,6 +126,7 @@ export class PublisherManagerComponent implements OnInit {
 
   managePublisher() {
     this.publisher = {
+      completed:true,
       id: uuidv4(),
       lastName: this.publisherFormGroup.get('lastNameCtrl')?.value,
       firstName: this.publisherFormGroup.get('firstNameCtrl')?.value,
