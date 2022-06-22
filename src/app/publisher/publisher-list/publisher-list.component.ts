@@ -12,7 +12,6 @@ import { Publisher, UncompletedPublisher } from '../publisher.model';
 import { PublisherService } from '../publisher.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { v4 as uuidv4 } from 'uuid';
 
 
 @Component({
@@ -20,9 +19,8 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './publisher-list.component.html',
   styleUrls: ['./publisher-list.component.scss'],
 })
-export class PublisherListComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class PublisherListComponent implements OnInit, AfterViewInit, OnDestroy{
+
   displayedColumns: string[] = ['lastName', 'firstName', 'gender'];
   dataSource: MatTableDataSource<Publisher> = new MatTableDataSource();
   sub: Subscription;
@@ -63,11 +61,18 @@ export class PublisherListComponent
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  onRowClick(id: any) {
-    this.router.navigate([`/publishers/publisher-detail/${id}`]);
+  onRowClick(publisher:any) {
+console.log(publisher);
+
+    if(publisher.completed){
+      this.router.navigate([`/publishers/${publisher.id}/publisher-detail`]);
+    }else{
+      console.log("c'est le caca");
+      this.router.navigate([`/publishers/${publisher.id}/manage-publisher`]);
+    }
   }
   onClickAddPublisher() {
-    this.router.navigate(['/publishers/manage-publisher']);
+    this.router.navigate(['/publishers/new-publisher']);
   }
 
   ngOnDestroy(): void {
@@ -78,7 +83,6 @@ export class PublisherListComponent
   managePublisher() {
     this.uncompletedPublisher = {
       completed:false,
-      id: uuidv4(),
       lastName: this.publisherFormGroup.get('lastNameCtrl')?.value,
       firstName: this.publisherFormGroup.get('firstNameCtrl')?.value,
       gender:  this.publisherFormGroup.get('genderCtrl')?.value,
@@ -90,6 +94,7 @@ export class PublisherListComponent
     this.managePublisher();
     this.publservice.addPublisher(this.uncompletedPublisher);
     this.addNewPublisher=false;
+
   }
   onClickQuickAddPublisher(){
     this.addNewPublisher=true;
@@ -98,7 +103,6 @@ export class PublisherListComponent
     if (this.publisherFormGroup.get('lastNameCtrl')?.hasError('required')) {
       return 'Champ obligatoire';
     }
-
     return this.publisherFormGroup.get('lastNameCtrl')?.hasError('email')
       ? 'Not a valid email'
       : '';

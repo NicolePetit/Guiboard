@@ -9,8 +9,9 @@ import { PublisherManagerComponent } from './publisher/publisher-manager/publish
 const routes: Routes = [
   { path: 'home-page', component: HomePageComponent },
   { path: 'publishers', component: PublisherListComponent },
-  { path: 'publishers/publisher-detail/:id', component: PublisherDetailsComponent },
-  { path: 'publishers/manage-publisher', component: PublisherManagerComponent },
+  { path: 'publishers/new-publisher', component: PublisherManagerComponent },
+  { path: 'publishers/:id/publisher-detail', component: PublisherDetailsComponent },
+  { path: 'publishers/:id/manage-publisher', component: PublisherManagerComponent },
   // { path: 'page-not-found', component: PageNotFoundComponent },
   // {path: '**', redirectTo : '/page-not-found'}
 ];

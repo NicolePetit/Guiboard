@@ -2,17 +2,20 @@
 <mat-card *ngIf="publisher" class="publisherCard mat-typography">
   <mat-card-header class="cardHeader">
     <mat-card-title class="cardTitle">
-      <mat-icon svgIcon="{{publisher.gender==='Proclamatrice'? 'female' : 'male'}}"></mat-icon>  {{publisher.lastName}} {{publisher.firstName}} <span>né(e) le {{dateUtil.formatDate(publisher.birthdate)}}  <mat-icon svgIcon="{{publisher.hope===0? 'crown' : 'sheep'}}"></mat-icon></span>
+      <mat-icon svgIcon="{{publisher.gender==='Proclamatrice'? 'female' : 'male'}}"></mat-icon> {{publisher.lastName}}
+      {{publisher.firstName}} <span>né(e) le {{dateUtil.formatDate(publisher.birthdate)}} <mat-icon
+          svgIcon="{{publisher.hope===0? 'crown' : 'sheep'}}"></mat-icon></span>
     </mat-card-title>
-    <mat-card-subtitle class="cardSubtitle">baptême le {{dateUtil.formatDate(publisher.baptismDate)}}</mat-card-subtitle>
+    <mat-card-subtitle class="cardSubtitle">baptême le {{dateUtil.formatDate(publisher.baptismDate)}}
+    </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="cardContent">
     <div>
-      <h2 *ngIf="publisher.elder" >Ancien</h2>
-      <h2 *ngIf="publisher.ministerialServant" >Assistant Ministeriel</h2>
-      <h2 *ngIf="publisher.commonPrivileges" >{{publisher.commonPrivileges}}</h2>
+      <h2 *ngIf="publisher.elder">Ancien</h2>
+      <h2 *ngIf="publisher.ministerialServant">Assistant Ministeriel</h2>
+      <h2 *ngIf="publisher.commonPrivileges">{{publisher.commonPrivileges}}</h2>
 
-      <h3 >Adresse</h3>
+      <h3>Adresse</h3>
       <p class="mat-h5">{{publisher.adress.country}}, {{publisher.adress.county}}</p>
       <p class="mat-body">{{publisher.adress.city}} </p>
       <p class="mat-body">{{publisher.adress.adressLine1}} </p>
@@ -21,13 +24,8 @@
     </div>
   </mat-card-content>
   <mat-card-actions class="cardActions">
-    <button mat-raised-button color="accent">Modifier</button>
-
-    <button mat-fab color="warn"
-    class="deleteButton">
-      <mat-icon>delete</mat-icon>
-    </button>
-
+    <button mat-raised-button color="accent" (click)="onClickToModify()">Modifier</button>
+    <button mat-fab color="warn" class="deleteButton" (click)="onClickToDelete()"><mat-icon>delete</mat-icon></button>
   </mat-card-actions>
 
   <mat-card-footer class="cardFooter">

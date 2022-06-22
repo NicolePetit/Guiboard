@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { DateUtil } from 'src/app/utils/dates';
 import { IconService } from 'src/shared/icon.service';
@@ -14,22 +14,31 @@ import { PublisherService } from '../publisher.service';
 export class PublisherDetailsComponent implements OnInit, OnDestroy {
   publisher: Publisher;
   sub: Subscription;
+  id: string;
 
   constructor(
     public icon: IconService,
     public publservice: PublisherService,
     private routeID: ActivatedRoute,
-    public dateUtil: DateUtil
+    public dateUtil: DateUtil,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    const id = this.routeID.snapshot.params['id'];
+    this.id = this.routeID.snapshot.params['id'];
     this.sub = this.publservice.publisherById$
       .pipe(filter((data) => !!data))
       .subscribe((publisherFound) => {
         this.publisher = publisherFound!;
       });
-    this.publservice.findOnePublisher(id);
+    this.publservice.findOnePublisher(this.id);
+  }
+  onClickToModify(){
+this.router.navigate([`/publishers/${this.id}/manage-publisher`]);
+  }
+  onClickToDelete(){
+    this.publservice.removePublisher(this.id);
+    this.router.navigate(["/publishers"])
   }
 
   ngOnDestroy(): void {

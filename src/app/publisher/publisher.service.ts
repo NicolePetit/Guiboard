@@ -21,9 +21,9 @@ export class PublisherService {
       .post('http://localhost:3000/api/guiboard/publishers', publisher)
       .subscribe(() => {
         this.router.navigate(['/publishers']);
+        this.findAllPublishers();
       });
   }
-
   updatePublisher() {}
   removePublisher() {}
 
@@ -32,7 +32,8 @@ export class PublisherService {
       .get(`http://localhost:3000/api/guiboard/publishers/${paramsId}`)
       .subscribe((responseData) => {
         this.publisherById$.next(new Publisher(responseData));
-      });
+        //console.log(this.publisherById$.value);
+ });
   }
 
   findAllPublishers() {
