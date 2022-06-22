@@ -16,7 +16,7 @@ export class PublisherService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  addPublisher(publisher: Publisher|UncompletedPublisher) {
+  addPublisher(publisher: Publisher | UncompletedPublisher) {
     this.http
       .post('http://localhost:3000/api/guiboard/publishers', publisher)
       .subscribe(() => {
@@ -24,8 +24,21 @@ export class PublisherService {
         this.findAllPublishers();
       });
   }
-  updatePublisher() {}
-  removePublisher() {}
+  updatePublisher(publisher: Publisher, id:string) {
+    console.log(publisher);
+    this.http
+      .patch(
+        `http://localhost:3000/api/guiboard/publishers/${id}/update`,publisher)
+      .subscribe(() => {
+        this.router.navigate(['/publishers']);
+        this.findAllPublishers();
+      });
+  }
+  removePublisher(id: string) {
+    this.http
+      .delete(`http://localhost:3000/api/guiboard/publishers/${id}/delete`)
+      .subscribe();
+  }
 
   findOnePublisher(paramsId: string) {
     this.http
@@ -33,7 +46,7 @@ export class PublisherService {
       .subscribe((responseData) => {
         this.publisherById$.next(new Publisher(responseData));
         //console.log(this.publisherById$.value);
- });
+      });
   }
 
   findAllPublishers() {
