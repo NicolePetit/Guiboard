@@ -38,7 +38,7 @@ this.router.navigate([`/publishers/${this.id}/manage-publisher`]);
   }
   onClickToDelete(){
     this.publservice.removePublisher(this.id);
-    this.router.navigate(["/publishers"])
+    this.router.navigate(["/publishers"]);
   }
 
   ngOnDestroy(): void {

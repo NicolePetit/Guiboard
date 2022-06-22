@@ -213,10 +213,11 @@ export class PublisherManagerComponent implements OnInit, OnDestroy {
       this.publService.addPublisher(this.publisher);
       return;
     }else{
-
-    }
-    return; // implémenter la modification d'objet
-  }
+        this.managePublisher();
+        this.publService.updatePublisher(this.publisher,this.existingPublisherId!);
+        return;
+      };
+    };
 
   getErrorMessage() {
     if (this.publisherFormGroup.get('lastNameCtrl')?.hasError('required')) {
