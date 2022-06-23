@@ -1,13 +1,18 @@
-import { Component, ElementRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable, Subscription, filter } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { map, startWith } from 'rxjs/operators';
 import { PublisherService } from '../publisher.service';
 import { Publisher } from '../publisher.model';
-
 
 @Component({
   selector: 'app-publisher-manager',
@@ -18,8 +23,8 @@ export class PublisherManagerComponent implements OnInit, OnDestroy {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   sub: Subscription;
   isEditMode = false;
-  existingPublisherId: undefined;
-  existingPublisherDatas: Publisher;
+  existingPublisherId: string | null;
+  existingPublisherDatas: any;
   publisher: Publisher;
   isElder: boolean = false;
   isMinistryAssisstant: boolean = false;
@@ -76,8 +81,7 @@ export class PublisherManagerComponent implements OnInit, OnDestroy {
 
   constructor(
     public publService: PublisherService,
-    private routeID: ActivatedRoute,
-    private router: Router
+    private routeID: ActivatedRoute
   ) {
     this.filteredcommonPrivilege = this.commonPrivilegeCtrl.valueChanges.pipe(
       startWith(null),
@@ -97,42 +101,84 @@ export class PublisherManagerComponent implements OnInit, OnDestroy {
         )
       );
   }
-  ngOnInit(): void {
-    this.existingPublisherId = this.routeID.snapshot.params['id'];
 
-    if (typeof this.existingPublisherId === 'string') {
+  ngOnInit(): void {
+    if (this.routeID.snapshot.params['id']) {
       this.isEditMode = true;
+      this.existingPublisherId = this.routeID.snapshot.params['id'];
+      this.publService.findOnePublisher(this.existingPublisherId!);
       this.sub = this.publService.publisherById$
         .pipe(filter((data) => !!data))
         .subscribe((publisherFound) => {
           this.existingPublisherDatas = publisherFound!;
-          this.publisherFormGroup.patchValue(
-            {
-              lastNameCtrl: !!this.existingPublisherDatas.lastName? this.existingPublisherDatas.lastName :"",
-              firstNameCtrl: !!this.existingPublisherDatas.firstName? this.existingPublisherDatas.firstName :"",
-              hopeCtrl: !!this.existingPublisherDatas.hope? this.existingPublisherDatas.hope :"",
-              birthdateCtrl: !!this.existingPublisherDatas.birthdate? this.existingPublisherDatas.birthdate :"",
-              baptismDateCtrl: !!this.existingPublisherDatas.baptismDate? this.existingPublisherDatas.baptismDate :"",
-              genderCtrl: !!this.existingPublisherDatas.gender? this.existingPublisherDatas.gender :"",
-              adressCtrlGroup: {
-                countryCtrl: !!this.existingPublisherDatas.adress.country? this.existingPublisherDatas.adress.country :"",
-                countyCtrl: !!this.existingPublisherDatas.adress.county? this.existingPublisherDatas.adress.county :"",
-                cityCtrl: !!this.existingPublisherDatas.adress.city? this.existingPublisherDatas.adress.city :"",
-                zipCodeCtrl: !!this.existingPublisherDatas.adress.zipCode? this.existingPublisherDatas.adress.zipCode :"",
-                adressFirstLineCtrl: !!this.existingPublisherDatas.adress.adressLine1? this.existingPublisherDatas.adress.adressLine1 :"",
-                adressSecondLineCtrl: !!this.existingPublisherDatas.adress.adressLine2? this.existingPublisherDatas.adress.adressLine2 :"",
-              },
-              phoneNumberCtrl: !!this.existingPublisherDatas.phoneNumber? this.existingPublisherDatas.phoneNumber :"",
-              emergencyContactCtrl: !!this.existingPublisherDatas.emergencyContact? this.existingPublisherDatas.emergencyContact :"",
-              // comment garder la valeur "ancien ou am"
-             });
-            if (typeof this.existingPublisherDatas.commonPrivileges!=="undefined"){
-              this.commonPrivileges=this.existingPublisherDatas.commonPrivileges!;
-            }else{};
-            if (typeof this.existingPublisherDatas.brotherPrivileges!=="undefined"){
-              this.brothersPrivileges=this.existingPublisherDatas.brotherPrivileges!;
-            }else{};
+          this.isElder = this.existingPublisherDatas.elder;
+          this.publisherFormGroup.patchValue({
+            lastNameCtrl: !!this.existingPublisherDatas.lastName
+              ? this.existingPublisherDatas.lastName
+              : '',
+            firstNameCtrl: !!this.existingPublisherDatas.firstName
+              ? this.existingPublisherDatas.firstName
+              : '',
+            hopeCtrl: !!this.existingPublisherDatas.hope
+              ? this.existingPublisherDatas.hope
+              : '',
+            birthdateCtrl: !!this.existingPublisherDatas.birthdate
+              ? this.existingPublisherDatas.birthdate
+              : '',
+            baptismDateCtrl: !!this.existingPublisherDatas.baptismDate
+              ? this.existingPublisherDatas.baptismDate
+              : '',
+            genderCtrl: !!this.existingPublisherDatas.gender
+              ? this.existingPublisherDatas.gender
+              : '',
+            adressCtrlGroup: {
+              countryCtrl: !!this.existingPublisherDatas.adress?.country
+                ? this.existingPublisherDatas.adress.country
+                : '',
+              countyCtrl: !!this.existingPublisherDatas.adress?.county
+                ? this.existingPublisherDatas.adress.county
+                : '',
+              cityCtrl: !!this.existingPublisherDatas.adress?.city
+                ? this.existingPublisherDatas.adress.city
+                : '',
+              zipCodeCtrl: !!this.existingPublisherDatas.adress?.zipCode
+                ? this.existingPublisherDatas.adress.zipCode
+                : '',
+              adressFirstLineCtrl: !!this.existingPublisherDatas.adress
+                ?.adressLine1
+                ? this.existingPublisherDatas.adress.adressLine1
+                : '',
+              adressSecondLineCtrl: !!this.existingPublisherDatas.adress
+                ?.adressLine2
+                ? this.existingPublisherDatas.adress.adressLine2
+                : '',
+            },
+            phoneNumberCtrl: !!this.existingPublisherDatas.phoneNumber
+              ? this.existingPublisherDatas.phoneNumber
+              : '',
+            emergencyContactCtrl: !!this.existingPublisherDatas.emergencyContact
+              ? this.existingPublisherDatas.emergencyContact
+              : '',
+            // comment garder la valeur "ancien ou am"
+          });
+          if (
+            typeof this.existingPublisherDatas.commonPrivileges !== 'undefined'
+          ) {
+            this.commonPrivileges =
+              this.existingPublisherDatas.commonPrivileges!;
+          } else {
+          }
+          if (
+            typeof this.existingPublisherDatas.brotherPrivileges !== 'undefined'
+          ) {
+            this.brothersPrivileges =
+              this.existingPublisherDatas.brotherPrivileges!;
+          } else {
+          }
         });
+
+    } else {
+      this.isEditMode = false;
     }
   }
 
@@ -170,7 +216,6 @@ export class PublisherManagerComponent implements OnInit, OnDestroy {
   managePublisher() {
     this.publisher = {
       completed: true,
-
       lastName: this.publisherFormGroup.get('lastNameCtrl')?.value,
       firstName: this.publisherFormGroup.get('firstNameCtrl')?.value,
       hope: this.publisherFormGroup.get('hopeCtrl')?.value,
@@ -208,16 +253,20 @@ export class PublisherManagerComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if (this.isEditMode===false) {
+    if (this.isEditMode === false) {
       this.managePublisher();
       this.publService.addPublisher(this.publisher);
       return;
-    }else{
-        this.managePublisher();
-        this.publService.updatePublisher(this.publisher,this.existingPublisherId!);
-        return;
-      };
-    };
+    } else {
+      this.managePublisher();
+      this.publisher.id = this.existingPublisherId!;
+      this.publService.updatePublisher(
+        this.publisher,
+        this.existingPublisherId!
+      );
+      return;
+    }
+  }
 
   getErrorMessage() {
     if (this.publisherFormGroup.get('lastNameCtrl')?.hasError('required')) {
@@ -229,7 +278,7 @@ export class PublisherManagerComponent implements OnInit, OnDestroy {
       : '';
   }
   ngOnDestroy(): void {
-    if(this.isEditMode){
+    if (this.sub) {
       this.sub.unsubscribe();
     }
   }

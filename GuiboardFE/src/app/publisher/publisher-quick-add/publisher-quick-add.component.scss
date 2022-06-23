@@ -1,0 +1,28 @@
+mat-form-field {
+  margin-left: 12px;
+  min-width: 70px;
+  max-width: 250px;
+  width: 50%;
+
+}
+mat-radio-group, mat-radio-button{
+  margin: 12px;
+}
+
+
+.quick-fast-add-publisher{
+  position: absolute;
+  top: -20%;
+  left: 0%;
+  z-index: 101;
+  height: 98vh;
+  width:100vw;
+  background-color: rgba(165, 165, 165, 80%);
+}
+.quick-fast-add-publisher-form{
+  position: relative;
+  top: 30vh;
+  height:fit-content;
+  width:35vw;
+  margin: auto;
+}

@@ -9,6 +9,7 @@ import { PublisherManagerComponent } from './publisher-manager/publisher-manager
 import { PublisherDetailsComponent } from './publisher-details/publisher-details.component';
 import { MaterialModule } from 'src/shared/material.module';
 import { RouterModule } from '@angular/router';
+import { PublisherQuickAddComponent } from './publisher-quick-add/publisher-quick-add.component';
 
 
 
@@ -17,6 +18,7 @@ import { RouterModule } from '@angular/router';
     PublisherListComponent,
     PublisherManagerComponent,
     PublisherDetailsComponent,
+    PublisherQuickAddComponent,
   ],
   imports: [CommonModule,FormsModule, ReactiveFormsModule, MaterialModule, RouterModule, HttpClientModule],
   exports: [

@@ -22,7 +22,7 @@
         </mat-form-field>
         <mat-radio-group formControlName="genderCtrl" aria-label="Gender">
           <mat-radio-button value="Proclamateur">Proclamateur</mat-radio-button>
-          <mat-radio-button value="Proclamatrice ">Proclamatrice</mat-radio-button>
+          <mat-radio-button value="Proclamatrice">Proclamatrice</mat-radio-button>
         </mat-radio-group>
       </p>
       <p>
@@ -41,8 +41,8 @@
           <mat-datepicker #baptismDate></mat-datepicker>
         </mat-form-field>
         <mat-radio-group formControlName="hopeCtrl" aria-label="Hope">
-          <mat-radio-button value="1">Autre brebis</mat-radio-button>
-          <mat-radio-button value="2">Oint</mat-radio-button>
+          <mat-radio-button value="otherSheep">Autre brebis</mat-radio-button>
+          <mat-radio-button value="anointed">Oint</mat-radio-button>
         </mat-radio-group>
       </p>
       <h1>Adresse</h1>
@@ -117,42 +117,45 @@
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
-        <button *ngIf="isElder===false && isMinistryAssisstant===false" mat-stroked-button color="primary" type="button"
-        #elderBtn (click)="onElderBtnClick()">
-        Ancien</button>
-        <button *ngIf="isElder===true && isMinistryAssisstant===false" mat-raised-button color="primary" type="button"
-        #elderBtn (click)="onElderBtnClick()">
-        Ancien</button>
-        <button *ngIf="isMinistryAssisstant===true" mat-stroked-button disabled type="button" #elderBtn
-          (click)="onElderBtnClick()">
+        <!-- Remplacer ngif par ngClass hidden -->
+        <div *ngIf='publisherFormGroup.get("genderCtrl")?.value === "Proclamateur"'>
+
+          <button *ngIf="isElder===false && isMinistryAssisstant===false" mat-stroked-button color="primary" type="button"
+          #elderBtn (click)="onElderBtnClick()">
           Ancien</button>
-          <button *ngIf="isElder===false && isMinistryAssisstant===false" mat-stroked-button color="accent" type="button"
-          #minitryAssistantBtn (click)="onMinistryAssistantBtnClick()">Assistant ministeriel</button>
-          <button *ngIf="isElder===false && isMinistryAssisstant===true" mat-raised-button color="accent" type="button"
-          #minitryAssistantBtn (click)="onMinistryAssistantBtnClick()">Assistant ministeriel</button>
-          <button *ngIf="isElder===true " mat-stroked-button disabled type="button" #minitryAssistantBtn
-          (click)="onMinistryAssistantBtnClick()">Assistant ministeriel</button>
-          <mat-form-field appearance="outline">
-            <mat-label>Privilèges réservés aux frères</mat-label>
-            <mat-chip-list #BrothersPrivilegesChiplist aria-label="brothers privilege selection">
-              <mat-chip *ngFor="let brothersPrivilege of brothersPrivileges"
-              (removed)="removePrivilege(brothersPrivilege, brothersPrivileges )">
-              {{brothersPrivilege}}
-              <button matChipRemove>
-                <mat-icon>cancel</mat-icon>
-              </button>
-            </mat-chip>
-            <input placeholder="Rajouter un privilège..." #brothersPrivilegeInput [formControl]="brothersPrivilegeCtrl"
-            [matAutocomplete]="broAuto" [matChipInputFor]="BrothersPrivilegesChiplist"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
-          </mat-chip-list>
-          <mat-autocomplete #broAuto="matAutocomplete" (optionSelected)="selectedBrothersPrivilege($event)">
-            <mat-option *ngFor="let brothersPrivilege of filteredBrothersPrivilege | async" [value]="brothersPrivilege">
-              {{brothersPrivilege}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </p>
+          <button *ngIf="isElder===true && isMinistryAssisstant===false" mat-raised-button color="primary" type="button"
+          #elderBtn (click)="onElderBtnClick()">
+          Ancien</button>
+        <button *ngIf="isMinistryAssisstant===true" mat-stroked-button disabled type="button" #elderBtn
+        (click)="onElderBtnClick()">
+        Ancien</button>
+        <button *ngIf="isElder===false && isMinistryAssisstant===false" mat-stroked-button color="accent" type="button"
+        #minitryAssistantBtn (click)="onMinistryAssistantBtnClick()">Assistant ministeriel</button>
+        <button *ngIf="isElder===false && isMinistryAssisstant===true" mat-raised-button color="accent" type="button"
+        #minitryAssistantBtn (click)="onMinistryAssistantBtnClick()">Assistant ministeriel</button>
+        <button *ngIf="isElder===true " mat-stroked-button disabled type="button" #minitryAssistantBtn
+        (click)="onMinistryAssistantBtnClick()">Assistant ministeriel</button>
+        <mat-form-field appearance="outline">
+          <mat-label>Privilèges réservés aux frères</mat-label>
+          <mat-chip-list #BrothersPrivilegesChiplist aria-label="brothers privilege selection">
+            <mat-chip *ngFor="let brothersPrivilege of brothersPrivileges"
+            (removed)="removePrivilege(brothersPrivilege, brothersPrivileges )">
+            {{brothersPrivilege}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input placeholder="Rajouter un privilège..." #brothersPrivilegeInput [formControl]="brothersPrivilegeCtrl"
+          [matAutocomplete]="broAuto" [matChipInputFor]="BrothersPrivilegesChiplist"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+        </mat-chip-list>
+        <mat-autocomplete #broAuto="matAutocomplete" (optionSelected)="selectedBrothersPrivilege($event)">
+          <mat-option *ngFor="let brothersPrivilege of filteredBrothersPrivilege | async" [value]="brothersPrivilege">
+            {{brothersPrivilege}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
       <button mat-raised-button color="accent" type="submit">Sauvegarder</button>
     </form>
   </mat-card-content>

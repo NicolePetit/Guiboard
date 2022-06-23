@@ -1,17 +1,10 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild,} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
-import { Publisher, UncompletedPublisher } from '../publisher.model';
+import { Publisher } from '../publisher.model';
 import { PublisherService } from '../publisher.service';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -19,22 +12,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './publisher-list.component.html',
   styleUrls: ['./publisher-list.component.scss'],
 })
-export class PublisherListComponent implements OnInit, AfterViewInit, OnDestroy{
-
+export class PublisherListComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[] = ['lastName', 'firstName', 'gender'];
   dataSource: MatTableDataSource<Publisher> = new MatTableDataSource();
   sub: Subscription;
-  publisherFormGroup: FormGroup;
   publisher: Publisher;
-  uncompletedPublisher : UncompletedPublisher;
-  addNewPublisher = false;
 
   constructor(public publservice: PublisherService, public router: Router) {}
 
   @ViewChild(MatSort) sort: MatSort;
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
-  }
+ }
   ngOnInit(): void {
     this.sub = this.publservice.publishers$.subscribe(
       (publishers: Publisher[]) => {
@@ -49,24 +38,16 @@ export class PublisherListComponent implements OnInit, AfterViewInit, OnDestroy{
       }
     );
     this.publservice.findAllPublishers();
-
-    //******************************************************************* */
-    this.publisherFormGroup = new FormGroup({
-      lastNameCtrl: new FormControl('', Validators.required),
-      firstNameCtrl: new FormControl('', Validators.required),
-      genderCtrl: new FormControl('', Validators.required),
-    });
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  onRowClick(publisher:any) {
-console.log(publisher);
-
-    if(publisher.completed){
+  onRowClick(publisher: any) {
+    if (publisher.completed) {
       this.router.navigate([`/publishers/${publisher.id}/publisher-detail`]);
-    }else{
+    } else {
       console.log("c'est le caca");
       this.router.navigate([`/publishers/${publisher.id}/manage-publisher`]);
     }
@@ -74,37 +55,10 @@ console.log(publisher);
   onClickAddPublisher() {
     this.router.navigate(['/publishers/new-publisher']);
   }
-
+  onClickQuickAddPublisher() {
+    this.router.navigate(['/publishers/new-quick-publisher']);
+  }
   ngOnDestroy(): void {
     this.sub.unsubscribe();
-  }
-  // add quick publisher
-
-  managePublisher() {
-    this.uncompletedPublisher = {
-      completed:false,
-      lastName: this.publisherFormGroup.get('lastNameCtrl')?.value,
-      firstName: this.publisherFormGroup.get('firstNameCtrl')?.value,
-      gender:  this.publisherFormGroup.get('genderCtrl')?.value,
-    };
-    return this.uncompletedPublisher;
-  }
-
-  onSubmit() {
-    this.managePublisher();
-    this.publservice.addPublisher(this.uncompletedPublisher);
-    this.addNewPublisher=false;
-
-  }
-  onClickQuickAddPublisher(){
-    this.addNewPublisher=true;
-  }
-  getErrorMessage() {
-    if (this.publisherFormGroup.get('lastNameCtrl')?.hasError('required')) {
-      return 'Champ obligatoire';
-    }
-    return this.publisherFormGroup.get('lastNameCtrl')?.hasError('email')
-      ? 'Not a valid email'
-      : '';
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
-import { Publisher, UncompletedPublisher } from './publisher.model';
+import { Publisher } from './publisher.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class PublisherService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  addPublisher(publisher: Publisher | UncompletedPublisher) {
+  addPublisher(publisher: Publisher) {
     this.http
       .post('http://localhost:3000/api/guiboard/publishers', publisher)
       .subscribe(() => {
@@ -24,11 +24,12 @@ export class PublisherService {
         this.findAllPublishers();
       });
   }
-  updatePublisher(publisher: Publisher, id:string) {
-    console.log(publisher);
+  updatePublisher(publisher: Publisher, id: string) {
     this.http
       .patch(
-        `http://localhost:3000/api/guiboard/publishers/${id}/update`,publisher)
+        `http://localhost:3000/api/guiboard/publishers/${id}/update`,
+        publisher
+      )
       .subscribe(() => {
         this.router.navigate(['/publishers']);
         this.findAllPublishers();
@@ -45,7 +46,6 @@ export class PublisherService {
       .get(`http://localhost:3000/api/guiboard/publishers/${paramsId}`)
       .subscribe((responseData) => {
         this.publisherById$.next(new Publisher(responseData));
-        //console.log(this.publisherById$.value);
       });
   }
 
@@ -59,6 +59,7 @@ export class PublisherService {
       )
       .subscribe((responseData) => {
         this.publishers$.next(responseData);
+
       });
   }
 }

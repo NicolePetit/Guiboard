@@ -20,8 +20,8 @@ enum Gender {
   female = "Proclamatrice",
 }
 enum Hope {
-  anointed,
-  otherSheep,
+  anointed = 'anointed',
+  otherSheep = 'otherSheep',
 }
 class Address {
   country: string = "";
@@ -60,69 +60,52 @@ class Address {
 }
 
 class Publisher {
-  completed: boolean = false;
-  id: string | number = "";
+  completed: boolean;
+  id: string;
   lastName: string;
-  firstName: string = "";
-  hope: Hope | "" = "";
-  birthdate: Date | "" = "";
-  baptismDate: Date | "" = "";
-  gender: Gender | null = null;
-  phoneNumber: string = "";
-  emergencyContact: string = "";
-  adress: Address | "" = "";
-  elder?: boolean | "" = "";
-  ministerialServant?: boolean | "" = "";
-  commonPrivileges?: string[] = [];
-  brotherPrivileges?: string[] = [];
-
+  firstName: string;
+  hope: Hope | null;
+  birthdate: Date |null;
+  baptismDate: Date | null;
+  gender: Gender | null;
+  phoneNumber: string| null;
+  emergencyContact: string| null;
+  adress: Address | null;
+  elder?: boolean | null;
+  ministerialServant?: boolean | null;
+  commonPrivileges?: string[]| null;
+  brotherPrivileges?: string[]| null;
   constructor(
-    completed: boolean,
+    completedOrNot: boolean,
     lastName?: string,
     firstName?: string,
-    hope?: Hope | "",
-    birthdate?: Date | "",
-    baptismDate?: Date | "",
-    gender?: Gender | "",
-    phoneNumber?: string,
-    emergencyContact?: string,
-    adress?: Address | "",
-    elder?: boolean | "",
-    ministerialServant?: boolean | "",
-    commonPrivileges?: string[],
-    brotherPrivileges?: string[]
+    hope?: Hope | null,
+    birthdate?: Date | null,
+    baptismDate?: Date | null,
+    gender?: Gender | null,
+    phoneNumber?: string | null,
+    emergencyContact?: string | null,
+    adress?: Address | null,
+    elder?: boolean | null,
+    ministerialServant?: boolean | null,
+    commonPrivileges?: string[] | null,
+    brotherPrivileges?: string[] | null
   ) {
-    this.completed = completed;
+    this.completed = completedOrNot;
     this.id = uuidv4();
-      this.lastName = lastName || "";
-    if (firstName) {
-      this.firstName = firstName;
-    }
-    if (hope) {
-      this.hope = hope;
-    }
-    if (birthdate) {
-      this.birthdate = new Date(birthdate);
-    }
-    if (baptismDate) {
-      this.baptismDate = new Date(baptismDate);
-    }
-    if (gender) {
-      this.gender = gender;
-    }
-    if (phoneNumber) {
-      this.phoneNumber = phoneNumber;
-    }
-    if (emergencyContact) {
-      this.emergencyContact = emergencyContact;
-    }
-    if (adress) {
-      this.adress = adress;
-    }
+    this.lastName = lastName || "";
+    this.firstName = firstName || "";
+    this.hope = hope || null;
+    this.birthdate = new Date(birthdate || " 2000,1,1");
+    this.baptismDate = new Date(baptismDate || " 2000,1,1");
+    this.gender = gender || null;
+    this.phoneNumber = phoneNumber || null;
+    this.emergencyContact = emergencyContact || null;
+    this.adress = adress || null;
     this.elder = elder;
     this.ministerialServant = ministerialServant;
-    this.commonPrivileges = commonPrivileges;
-    this.brotherPrivileges = brotherPrivileges;
+    this.commonPrivileges = commonPrivileges || null;
+    this.brotherPrivileges = brotherPrivileges || null;
   }
 }
 
@@ -131,7 +114,6 @@ app.get("/api/guiboard/publishers", (req, res) => {
 });
 app.post("/api/guiboard/publishers", (req, res) => {
   const publisher = req.body;
-
   publisher.id = uuidv4();
   publishers.push(publisher);
   res.end();
@@ -155,7 +137,7 @@ app.patch("/api/guiboard/publishers/:id/update", (req, res) => {
   const index = publishers.findIndex(
     (publisher) => publisher.id == req.params.id
   );
-  publishers.splice(index, 1, publishers[index]);
+  publishers.splice(index, 1, req.body);
   res.end();
 });
 
@@ -164,7 +146,7 @@ const publishers: Publisher[] = [
     true,
     "Bonjour",
     "Carengueude",
-    1,
+    Hope.anointed,
     new Date(1999, 5, 1),
     new Date(2004, 7, 7),
     Gender.female,
@@ -186,7 +168,7 @@ const publishers: Publisher[] = [
     true,
     "Salut",
     "Carengueude",
-    1,
+    Hope.anointed,
     new Date(1999, 5, 1),
     new Date(2004, 7, 7),
     Gender.female,
@@ -208,7 +190,7 @@ const publishers: Publisher[] = [
     true,
     "Dutoit",
     "Carengueude",
-    1,
+    Hope.otherSheep,
     new Date(1999, 5, 1),
     new Date(2004, 7, 7),
     Gender.female,
@@ -230,7 +212,7 @@ const publishers: Publisher[] = [
     true,
     "Corgi",
     "Walter",
-    0,
+    Hope.anointed,
     new Date(1954, 25, 11),
     new Date(1971, 2, 2),
     Gender.male,
