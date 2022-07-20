@@ -35,7 +35,7 @@ export class Publisher {
   constructor(obj?: any) {
     if (obj) {
       this.completed=true;
-      this.id = obj.id;
+      this.id = obj._id;
       this.lastName = obj.lastName;
       this.firstName = obj.firstName;
       this.hope = obj.hope;

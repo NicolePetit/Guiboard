@@ -45,6 +45,8 @@ export class PublisherListComponent implements OnInit, AfterViewInit, OnDestroy 
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   onRowClick(publisher: any) {
+    console.log(publisher);
+
     if (publisher.completed) {
       this.router.navigate([`/publishers/${publisher.id}/publisher-detail`]);
     } else {
